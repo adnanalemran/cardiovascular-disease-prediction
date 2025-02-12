@@ -32,14 +32,13 @@ def get_user_input():
     oldpeak = get_input("ST Depression Induced by Exercise Relative to Rest", 1.5)
     ca = get_input("Number of Major Vessels (0-3) Colored by Fluoroscopy", 0)
     thal = get_input("Thalassemia (3 = normal; 6 = fixed defect; 7 = reversible defect)", 3)
-
     return np.array([age, sex, cp, trestbps, chol, thalach, oldpeak, ca, thal]).reshape(1, -1)
 
 
 
 def main():
  
-    model_path = "output/trained_model.sav"
+    model_path = "output/trained_model.pkl"
 
     # Load the model
     try:
@@ -67,9 +66,9 @@ def main():
 
     # Display the result
     if prediction[0] == 0:
-        print("Prediction: The Person does not have Heart Disease.")
+        print("✅ Prediction: The Person does not have Heart Disease.")
     else:
-        print("Prediction: The Person has Heart Disease.")
+        print("❌ Prediction: The Person has Heart Disease.")
 
 
 if __name__ == "__main__":

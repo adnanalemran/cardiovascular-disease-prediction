@@ -75,6 +75,6 @@ if __name__ == '__main__':
     os.makedirs(output_directory, exist_ok=True)
 
     # Save the trained model using joblib in the output directory
-    filename = os.path.join(output_directory, 'trained_model.sav')
+    filename = os.path.join(output_directory, 'trained_model.pkl')
     joblib.dump(cls, filename)
     print(f"Model saved to {filename}")
