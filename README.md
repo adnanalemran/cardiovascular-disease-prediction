@@ -1,4 +1,4 @@
-# cardiovascular-disease-prediction
+# Cardiovascular Disease Prediction
 
 ## Tools
 - NumPy
@@ -24,7 +24,7 @@ python3 -m venv venv
 
 Install dependecies
 ```zsh
-# pip3 install pandas scikit-learn
+# pip3 install pandas scikit-learn joblib
 # pip3 freeze > requirements.txt
 pip3 install -r requirements.txt
 ```
