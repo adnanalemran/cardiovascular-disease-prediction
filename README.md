@@ -34,6 +34,14 @@ pip3 install -r requirements.txt
 python3 manage.py runserver
 ```
 
+### Input
+<!-- ![Input/Output](https://github.com/user-attachments/assets/835417ba-b09c-41ad-882f-557599f2fa28) -->
+![Input](docs/Heart-Disease-Prediction.png)
+
+### Output
+![Output](docs/Prediction.png)
+
+
 ### How to train model?
 
 ```zsh
@@ -45,10 +53,3 @@ python3 train/model.py
 ```zsh
 python3 train_script.py
 ```
-
-### Input
-<!-- ![Input/Output](https://github.com/user-attachments/assets/835417ba-b09c-41ad-882f-557599f2fa28) -->
-![Input](docs/Heart-Disease-Prediction.png)
-
-### Output
-![Output](docs/Prediction.png)
