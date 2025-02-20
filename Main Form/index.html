@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiovascular Disease Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cardiovascular Disease Prediction</h2>
+        <form action="process.php" method="POST">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="sex">Sex:</label>
+            <select id="sex" name="sex" required>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+
+            <label for="cp">Chest Pain Type (cp):</label>
+            <input type="number" id="cp" name="cp" required>
+
+            <label for="trestbps">Resting Blood Pressure (trestbps):</label>
+            <input type="number" id="trestbps" name="trestbps" required>
+
+            <label for="chol">Cholesterol (chol):</label>
+            <input type="number" id="chol" name="chol" required>
+
+            <label for="thalach">Max Heart Rate (thalach):</label>
+            <input type="number" id="thalach" name="thalach" required>
+
+            <label for="oldpeak">ST Depression (oldpeak):</label>
+            <input type="number" step="0.1" id="oldpeak" name="oldpeak" required>
+
+            <label for="ca">Major Vessels (ca):</label>
+            <input type="number" id="ca" name="ca" required>
+
+            <label for="thal">Thalassemia (thal):</label>
+            <select id="thal" name="thal" required>
+                <option value="3">Normal</option>
+                <option value="6">Fixed Defect</option>
+                <option value="7">Reversible Defect</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+</body>
+</html>
