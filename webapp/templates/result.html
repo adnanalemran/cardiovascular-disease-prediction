@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: black;
+        }
+
+        .result-box {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .healthy {
+            background-color: green;
+        }
+
+        .disease {
+            background-color: red;
+        }
+
+        .dialog-box {
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .hurray {
+            background-color: lightgreen;
+            color: darkgreen;
+        }
+
+        .encouragement {
+            background-color: pink;
+            color: darkred;
+        }
+
+        .home-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .home-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="modal">
+    <span class="close-btn" onclick="window.history.back();">&times;</span>
+    <h2>Heart Disease Prediction Result</h2>
+
+    {% if ans == 0 %}
+        <div class="dialog-box hurray">🎉 Hurray! No heart disease detected. Stay healthy and keep up the good work! 🎉</div>
+    {% else %}
+        <div class="dialog-box encouragement">❤️ Stay strong! Early detection is key. Follow your doctor’s advice and take care. ❤️</div>
+    {% endif %}
+
+    <a href="{% url 'homes' %}" class="home-btn">Go to Home</a>
+</div>
+
+</body>
+</html>

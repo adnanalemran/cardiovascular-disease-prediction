@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('https://www.southcoasthealth.com/assets/upload/695693f2-a879-4a36-aab5-386916191104/heart-attack-concept.jpg'); /* Heart disease theme */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background: #45a049;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .slider-container label {
+            flex: 2;
+        }
+
+        .slider-container input {
+            flex: 3;
+        }
+
+        .slider-value {
+            flex: 1;
+            font-weight: bold;
+            text-align: right;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 50px;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function updateSliderValue(id, value) {
+            document.getElementById(id + "-value").innerText = value;
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Heart Disease Prediction</h2>
+    <form action="{% url 'result' %}">
+        {% csrf_token %}
+
+        <div class="slider-container">
+            <label for="age">Age</label>
+            <input type="range" id="age" name="age" min="20" max="100" value="59" oninput="updateSliderValue('age', this.value)">
+            <span id="age-value" class="slider-value">59</span>
+        </div>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="sex" required>
+            <option value="1" selected>Male</option>
+            <option value="0">Female</option>
+        </select>
+
+        <label for="cp">Chest Pain Type</label>
+        <select id="cp" name="cp" required>
+            <option value="0">Typical Angina</option>
+            <option value="1">Atypical Angina</option>
+            <option value="2" selected>Non-Anginal Pain</option>
+            <option value="3">Asymptomatic</option>
+        </select>
+
+        <div class="slider-container">
+            <label for="trestbps">Blood Pressure</label>
+            <input type="range" id="trestbps" name="trestbps" min="90" max="200" value="130" oninput="updateSliderValue('trestbps', this.value)">
+            <span id="trestbps-value" class="slider-value">130</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="chol">Cholesterol</label>
+            <input type="range" id="chol" name="chol" min="100" max="400" value="250" oninput="updateSliderValue('chol', this.value)">
+            <span id="chol-value" class="slider-value">250</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="thalach">Max Heart Rate</label>
+            <input type="range" id="thalach" name="thalach" min="60" max="220" value="150" oninput="updateSliderValue('thalach', this.value)">
+            <span id="thalach-value" class="slider-value">150</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="oldpeak">ST Depression</label>
+            <input type="range" id="oldpeak" name="oldpeak" min="0" max="6.2" step="0.1" value="1.5" oninput="updateSliderValue('oldpeak', this.value)">
+            <span id="oldpeak-value" class="slider-value">1.5</span>
+        </div>
+
+        <label for="ca">Major Vessels</label>
+        <select id="ca" name="ca" required>
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+
+        <label for="thal">Thalassemia</label>
+        <select id="thal" name="thal" required>
+            <option value="3" selected>Normal</option>
+            <option value="6">Fixed Defect</option>
+            <option value="7">Reversible Defect</option>
+        </select>
+
+        <input type="submit" value="Predict">
+    </form>
+</div>
+
+</body>
+</html>
