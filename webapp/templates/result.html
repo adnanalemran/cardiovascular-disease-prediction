@@ -6,49 +6,38 @@
     <title>Heart Disease Prediction</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.5);
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('https://www.southcoasthealth.com/assets/upload/695693f2-a879-4a36-aab5-386916191104/heart-attack-concept.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
         }
 
         .modal {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
             text-align: center;
             width: 400px;
             position: relative;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.8s ease-in-out, scaleUp 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: black;
+        @keyframes scaleUp {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
         }
 
         .result-box {
@@ -58,14 +47,27 @@
             border-radius: 8px;
             color: white;
             margin-top: 15px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .healthy {
             background-color: green;
+            animation: glowGreen 1s ease-in-out infinite alternate;
         }
 
         .disease {
             background-color: red;
+            animation: glowRed 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowGreen {
+            from { box-shadow: 0 0 10px green; }
+            to { box-shadow: 0 0 20px lime; }
+        }
+
+        @keyframes glowRed {
+            from { box-shadow: 0 0 10px red; }
+            to { box-shadow: 0 0 20px darkred; }
         }
 
         .dialog-box {
@@ -73,6 +75,7 @@
             border-radius: 8px;
             font-size: 18px;
             font-weight: bold;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
         .hurray {
@@ -105,13 +108,14 @@
 <body>
 
 <div class="modal">
-    <span class="close-btn" onclick="window.history.back();">&times;</span>
     <h2>Heart Disease Prediction Result</h2>
 
     {% if ans == 0 %}
-        <div class="dialog-box hurray">🎉 Hurray! No heart disease detected. Stay healthy and keep up the good work! 🎉</div>
+        <div class="result-box healthy">✅ No Heart Disease Detected</div>
+        <div class="dialog-box hurray">🎉 Stay healthy and keep up the good work! 🎉</div>
     {% else %}
-        <div class="dialog-box encouragement">❤️ Stay strong! Early detection is key. Follow your doctor’s advice and take care. ❤️</div>
+        <div class="result-box disease">⚠️ Heart Disease Detected</div>
+        <div class="dialog-box encouragement">❤️ Stay strong! Follow your doctor’s advice and take care. ❤️</div>
     {% endif %}
 
     <a href="{% url 'homes' %}" class="home-btn">Go to Home</a>

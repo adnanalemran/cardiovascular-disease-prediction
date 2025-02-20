@@ -29,6 +29,11 @@ Install dependecies
 pip3 install -r requirements.txt
 ```
 
+### How to run Project ( Web App)?
+```zsh
+python3 manage.py runserver
+```
+
 ### How to train model?
 
 ```zsh
@@ -42,9 +47,8 @@ python3 train_script.py
 ```
 
 ### Input
-![Input/Output](https://github.com/user-attachments/assets/835417ba-b09c-41ad-882f-557599f2fa28)
+<!-- ![Input/Output](https://github.com/user-attachments/assets/835417ba-b09c-41ad-882f-557599f2fa28) -->
+![Input](docs/Heart-Disease-Prediction.png)
 
 
-```zsh
-python3 manage.py runserver
-```
+![Output](docs/Prediction.png)
