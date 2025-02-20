@@ -39,7 +39,10 @@ python3 manage.py runserver
 ![Input](docs/Heart-Disease-Prediction.png)
 
 ### Output
-![Output](docs/Prediction.png)
+
+<center>
+  <img src="docs/Prediction.png" width="600" height="400" />
+</center>
 
 
 ### How to train model?
