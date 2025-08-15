@@ -4,174 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Disease Prediction</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            background-image: url('https://www.southcoasthealth.com/assets/upload/695693f2-a879-4a36-aab5-386916191104/heart-attack-concept.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-
-        .container {
-            opacity: 0.9;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-            width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
-            text-align: left;
-        }
-
-        input, select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: 0.3s ease-in-out;
-        }
-
-        input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-
-        input[type="submit"] {
-            background: #4CAF50;
-            color: white;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        input[type="submit"]:hover {
-            background: #45a049;
-        }
-
-        .slider-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-
-        .slider-container label {
-            flex: 2;
-        }
-
-        .slider-container input {
-            flex: 3;
-        }
-
-        .slider-value {
-            flex: 1;
-            font-weight: bold;
-            text-align: right;
-            background: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            width: 50px;
-            display: inline-block;
-        }
-    </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#fef2f2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                        },
+                        'secondary': {
+                            500: '#f97316',
+                            600: '#ea580c',
+                        }
+                    }
+                }
+            }
+        }
+
         function updateSliderValue(id, value) {
             document.getElementById(id + "-value").innerText = value;
         }
     </script>
 </head>
-<body>
+<body class="font-inter min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+    
+    <div class="relative min-h-screen p-4 lg:p-8">
+        <div class="w-full max-w-7xl mx-auto">
+            <!-- Full Width Card Container -->
+            <div class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-indigo-500/10 border border-white/20 p-8 lg:p-12 transition-all duration-300 hover:shadow-3xl hover:shadow-indigo-500/20">
+                
+                <!-- Header -->
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl mb-8 shadow-xl">
+                        <i class="fas fa-heartbeat text-white text-4xl"></i>
+                    </div>
+                    <h1 class="text-5xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent mb-4">
+                        Heart Health Assessment
+                    </h1>
+                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">AI-Powered Cardiovascular Risk Assessment Tool for Early Detection and Prevention</p>
+                </div>
 
-<div class="container">
-    <h2>Heart Disease Prediction</h2>
-    <form action="{% url 'result' %}">
-        {% csrf_token %}
+                <!-- Form Container -->
+                <div class="max-w-5xl mx-auto">
+                    <form action="{% url 'result' %}" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {% csrf_token %}
 
-        <div class="slider-container">
-            <label for="age">Age</label>
-            <input type="range" id="age" name="age" min="20" max="100" value="59" oninput="updateSliderValue('age', this.value)">
-            <span id="age-value" class="slider-value">59</span>
+                        <!-- Left Column -->
+                        <div class="space-y-8">
+                            
+                            <!-- Age Slider -->
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-calendar-alt text-white"></i>
+                                    </div>
+                                    Age <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Enter your age in years">ⓘ</span>
+                                </label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" 
+                                           id="age" 
+                                           name="age" 
+                                           min="20" 
+                                           max="100" 
+                                           value="59" 
+                                           class="flex-1 h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                           oninput="updateSliderValue('age', this.value)">
+                                    <span id="age-value" class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg">59</span>
+                                </div>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-venus-mars text-white"></i>
+                                    </div>
+                                    Gender <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Select your biological sex">ⓘ</span>
+                                </label>
+                                <select name="sex" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white transition-all duration-200 text-lg">
+                                    <option value="1" selected>Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+
+                            <!-- Chest Pain Type -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-stethoscope text-white"></i>
+                                    </div>
+                                    Chest Pain Type <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Type of chest pain experienced">ⓘ</span>
+                                </label>
+                                <select name="cp" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white transition-all duration-200 text-lg">
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2" selected>Non-Anginal Pain</option>
+                                    <option value="3">Asymptomatic</option>
+                                </select>
+                            </div>
+
+                            <!-- Blood Pressure Slider -->
+                            <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-6 border border-red-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-tint text-white"></i>
+                                    </div>
+                                    Blood Pressure <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Resting blood pressure (mm Hg)">ⓘ</span>
+                                </label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" 
+                                           id="trestbps" 
+                                           name="trestbps" 
+                                           min="90" 
+                                           max="200" 
+                                           value="130" 
+                                           class="flex-1 h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                           oninput="updateSliderValue('trestbps', this.value)">
+                                    <span id="trestbps-value" class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg">130</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-8">
+
+                            <!-- Cholesterol Slider -->
+                            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 border border-yellow-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-chart-line text-white"></i>
+                                    </div>
+                                    Cholesterol <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Serum cholesterol (mg/dl)">ⓘ</span>
+                                </label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" 
+                                           id="chol" 
+                                           name="chol" 
+                                           min="100" 
+                                           max="400" 
+                                           value="250" 
+                                           class="flex-1 h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                           oninput="updateSliderValue('chol', this.value)">
+                                    <span id="chol-value" class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg">250</span>
+                                </div>
+                            </div>
+
+                            <!-- Max Heart Rate Slider -->
+                            <div class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-heartbeat text-white"></i>
+                                    </div>
+                                    Max Heart Rate <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Maximum heart rate achieved">ⓘ</span>
+                                </label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" 
+                                           id="thalach" 
+                                           name="thalach" 
+                                           min="60" 
+                                           max="220" 
+                                           value="150" 
+                                           class="flex-1 h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                           oninput="updateSliderValue('thalach', this.value)">
+                                    <span id="thalach-value" class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg">150</span>
+                                </div>
+                            </div>
+
+                            <!-- ST Depression Slider -->
+                            <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-6 border border-cyan-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-wave-square text-white"></i>
+                                    </div>
+                                    ST Depression <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="ST depression induced by exercise">ⓘ</span>
+                                </label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" 
+                                           id="oldpeak" 
+                                           name="oldpeak" 
+                                           min="0" 
+                                           max="6.2" 
+                                           step="0.1" 
+                                           value="1.5" 
+                                           class="flex-1 h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                           oninput="updateSliderValue('oldpeak', this.value)">
+                                    <span id="oldpeak-value" class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg">1.5</span>
+                                </div>
+                            </div>
+
+                            <!-- Major Vessels -->
+                            <div class="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 border border-teal-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-project-diagram text-white"></i>
+                                    </div>
+                                    Major Vessels <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Number of major vessels (0-3)">ⓘ</span>
+                                </label>
+                                <select name="ca" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white transition-all duration-200 text-lg">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <!-- Bottom Row - Spans Full Width -->
+                        <div class="lg:col-span-2 space-y-8">
+                            
+                            <!-- Thalassemia -->
+                            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+                                <label class="flex items-center gap-3 text-lg font-semibold text-gray-700 mb-4">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-microscope text-white"></i>
+                                    </div>
+                                    Thalassemia <span class="text-gray-400 hover:text-gray-600 cursor-help ml-2" title="Blood disorder type">ⓘ</span>
+                                </label>
+                                <select name="thal" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white transition-all duration-200 text-lg">
+                                    <option value="3" selected>Normal</option>
+                                    <option value="6">Fixed Defect</option>
+                                    <option value="7">Reversible Defect</option>
+                                </select>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="w-full max-w-md bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-6 px-8 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 text-xl">
+                                    <i class="fas fa-brain text-2xl"></i>
+                                    Analyze Heart Health
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-12 text-center">
+                    <p class="text-sm text-gray-500">Powered by AI • For educational purposes only • Results should not replace professional medical advice</p>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <label for="gender">Gender</label>
-        <select id="gender" name="sex" required>
-            <option value="1" selected>Male</option>
-            <option value="0">Female</option>
-        </select>
-
-        <label for="cp">Chest Pain Type</label>
-        <select id="cp" name="cp" required>
-            <option value="0">Typical Angina</option>
-            <option value="1">Atypical Angina</option>
-            <option value="2" selected>Non-Anginal Pain</option>
-            <option value="3">Asymptomatic</option>
-        </select>
-
-        <div class="slider-container">
-            <label for="trestbps">Blood Pressure</label>
-            <input type="range" id="trestbps" name="trestbps" min="90" max="200" value="130" oninput="updateSliderValue('trestbps', this.value)">
-            <span id="trestbps-value" class="slider-value">130</span>
-        </div>
-
-        <div class="slider-container">
-            <label for="chol">Cholesterol</label>
-            <input type="range" id="chol" name="chol" min="100" max="400" value="250" oninput="updateSliderValue('chol', this.value)">
-            <span id="chol-value" class="slider-value">250</span>
-        </div>
-
-        <div class="slider-container">
-            <label for="thalach">Max Heart Rate</label>
-            <input type="range" id="thalach" name="thalach" min="60" max="220" value="150" oninput="updateSliderValue('thalach', this.value)">
-            <span id="thalach-value" class="slider-value">150</span>
-        </div>
-
-        <div class="slider-container">
-            <label for="oldpeak">ST Depression</label>
-            <input type="range" id="oldpeak" name="oldpeak" min="0" max="6.2" step="0.1" value="1.5" oninput="updateSliderValue('oldpeak', this.value)">
-            <span id="oldpeak-value" class="slider-value">1.5</span>
-        </div>
-
-        <label for="ca">Major Vessels</label>
-        <select id="ca" name="ca" required>
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-
-        <label for="thal">Thalassemia</label>
-        <select id="thal" name="thal" required>
-            <option value="3" selected>Normal</option>
-            <option value="6">Fixed Defect</option>
-            <option value="7">Reversible Defect</option>
-        </select>
-
-        <input type="submit" value="Predict">
-    </form>
-</div>
-
+    <!-- Custom Slider Styles -->
+    <style>
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #ef4444, #f97316);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+        .slider::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #ef4444, #f97316);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
 </body>
 </html>

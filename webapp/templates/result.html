@@ -1,135 +1,236 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Disease Prediction</title>
+    <title>Heart Disease Prediction Result</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#fef2f2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                        },
+                        'secondary': {
+                            500: '#f97316',
+                            600: '#ea580c',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'scale-up': 'scaleUp 0.5s ease-in-out',
+                        'glow-green': 'glowGreen 2s ease-in-out infinite alternate',
+                        'glow-red': 'glowRed 2s ease-in-out infinite alternate',
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            background-image: url('https://d2jx2rerrg6sh3.cloudfront.net/image-handler/ts/20240405072922/ri/750/src/images/news/ImageForNews_776422_17123165547518811.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-
-        .modal {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 400px;
-            position: relative;
-            animation: fadeIn 0.8s ease-in-out, scaleUp 0.5s ease-in-out;
-        }
-
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes scaleUp {
-            from { transform: scale(0.8); }
+            from { transform: scale(0.9); }
             to { transform: scale(1); }
         }
-
-        .result-box {
-            font-size: 22px;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 8px;
-            color: white;
-            margin-top: 15px;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .healthy {
-            background-color: green;
-            animation: glowGreen 1s ease-in-out infinite alternate;
-        }
-
-        .disease {
-            background-color: red;
-            animation: glowRed 1s ease-in-out infinite alternate;
-        }
-
         @keyframes glowGreen {
-            from { box-shadow: 0 0 10px green; }
-            to { box-shadow: 0 0 20px lime; }
+            from { box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); }
+            to { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
         }
-
         @keyframes glowRed {
-            from { box-shadow: 0 0 10px red; }
-            to { box-shadow: 0 0 20px darkred; }
+            from { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+            to { box-shadow: 0 0 40px rgba(239, 68, 68, 0.6); }
         }
-
-        .dialog-box {
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            animation: fadeIn 1.2s ease-in-out;
-        }
-
-        .hurray {
-            background-color: lightgreen;
-            color: darkgreen;
-        }
-
-        .encouragement {
-            background-color: pink;
-            color: darkred;
-        }
-
-        .home-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #007BFF;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .home-btn:hover {
-            background: #0056b3;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #333;
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
-<body>
+<body class="font-inter min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+    
+    <div class="relative min-h-screen p-4 lg:p-8">
+        <div class="w-full max-w-6xl mx-auto">
+            <!-- Full Width Card Container -->
+            <div class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-indigo-500/10 border border-white/20 p-8 lg:p-12 transition-all duration-300 hover:shadow-3xl hover:shadow-indigo-500/20 animate-fade-in">
+                
+                <!-- Close Button -->
+                <button onclick="window.history.back();" class="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-all duration-200 text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-times"></i>
+                </button>
 
-<div class="modal">
-    <span class="close-btn" onclick="window.history.back();">&times;</span>
-    <h2>Heart Disease Prediction Result</h2>
+                <!-- Header -->
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl mb-8 shadow-xl animate-bounce-in">
+                        <i class="fas fa-heartbeat text-white text-4xl"></i>
+                    </div>
+                    <h1 class="text-5xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent mb-4">
+                        Analysis Complete
+                    </h1>
+                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">AI-Powered Cardiovascular Risk Assessment Results</p>
+                </div>
 
-    {% if ans == 0 %}
-        <div class="result-box healthy">✅ No Heart Disease Detected</div>
-        <div class="dialog-box hurray">🎉 Stay healthy and keep up the good work! 🎉</div>
-    {% else %}
-        <div class="result-box disease">⚠️ Heart Disease Detected</div>
-        <div class="dialog-box encouragement">❤️ Stay strong! Follow your doctor’s advice and take care. ❤️</div>
-    {% endif %}
+                <!-- Result Display -->
+                <div class="max-w-4xl mx-auto">
+                {% if ans == 0 %}
+                    <!-- Healthy Result -->
+                    <div class="text-center space-y-8">
+                        <!-- Main Result Card -->
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-500 rounded-3xl p-8 lg:p-12 text-white animate-glow-green">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check-circle text-4xl lg:text-5xl"></i>
+                                </div>
+                            </div>
+                            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Low Risk Detected</h2>
+                            <p class="text-green-100 text-xl lg:text-2xl">No immediate signs of heart disease</p>
+                        </div>
 
-    <a href="{% url 'homes' %}" class="home-btn">Go to Home</a>
-</div>
+                        <!-- Encouragement Message -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-8 lg:p-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-thumbs-up text-white text-lg"></i>
+                                </div>
+                                <h3 class="text-green-800 font-semibold text-2xl">Excellent News!</h3>
+                            </div>
+                            <p class="text-green-700 leading-relaxed text-lg mb-6">
+                                Your cardiovascular health appears to be in good condition. Keep up the great work with your healthy lifestyle choices!
+                            </p>
+                            
+                            <!-- Health Tips -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-running text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-green-800 font-medium mb-2">Stay Active</h4>
+                                    <p class="text-green-700 text-sm">Maintain regular exercise routine</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-apple-alt text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-green-800 font-medium mb-2">Eat Well</h4>
+                                    <p class="text-green-700 text-sm">Follow a balanced, heart-healthy diet</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-calendar-check text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-green-800 font-medium mb-2">Regular Checkups</h4>
+                                    <p class="text-green-700 text-sm">Schedule regular health assessments</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- At-Risk Result -->
+                    <div class="text-center space-y-8">
+                        <!-- Main Result Card -->
+                        <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl p-8 lg:p-12 text-white animate-glow-red">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-exclamation-triangle text-4xl lg:text-5xl"></i>
+                                </div>
+                            </div>
+                            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Higher Risk Detected</h2>
+                            <p class="text-red-100 text-xl lg:text-2xl">Potential cardiovascular concerns identified</p>
+                        </div>
 
+                        <!-- Support Message -->
+                        <div class="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-2xl p-8 lg:p-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-heart text-white text-lg"></i>
+                                </div>
+                                <h3 class="text-red-800 font-semibold text-2xl">Important Notice</h3>
+                            </div>
+                            <p class="text-red-700 leading-relaxed text-lg mb-6">
+                                Our AI analysis suggests you may be at higher risk for cardiovascular issues. Please consult with a healthcare professional for proper evaluation and guidance.
+                            </p>
+                            
+                            <!-- Action Items -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-user-md text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-red-800 font-medium mb-2">See Your Doctor</h4>
+                                    <p class="text-red-700 text-sm">Schedule an appointment with your physician</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-clipboard-list text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-red-800 font-medium mb-2">Get Tests</h4>
+                                    <p class="text-red-700 text-sm">Discuss these results with a cardiologist</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-heart text-white text-xl"></i>
+                                    </div>
+                                    <h4 class="text-red-800 font-medium mb-2">Lifestyle Changes</h4>
+                                    <p class="text-red-700 text-sm">Consider healthy modifications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 mt-12 max-w-2xl mx-auto">
+                    <a href="{% url 'homes' %}" class="flex-1 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3 text-lg">
+                        <i class="fas fa-redo text-xl"></i>
+                        New Analysis
+                    </a>
+                    <button onclick="window.print()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-4 px-8 rounded-2xl border border-gray-300 hover:border-gray-400 transition-all duration-200 flex items-center justify-center gap-3 text-lg">
+                        <i class="fas fa-print text-xl"></i>
+                        Print Results
+                    </button>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-2xl max-w-4xl mx-auto">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-info-circle text-yellow-600 mt-1 text-xl"></i>
+                        <div>
+                            <h4 class="text-yellow-800 font-medium text-lg mb-2">Medical Disclaimer</h4>
+                            <p class="text-yellow-700 text-base leading-relaxed">
+                                This AI analysis is for educational purposes only and should not replace professional medical advice. 
+                                Always consult with qualified healthcare providers for accurate diagnosis and treatment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-500">Powered by AI • Results generated on {{ "now"|date:"F d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
